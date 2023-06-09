@@ -1,60 +1,54 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <p>Have a look at the README.md before you begin!</p>
-    <h3>Installed Plugins</h3>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex"
-          target="_blank"
-          rel="noopener"
-          >vuex</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
-      </li>
-    </ul>
+    <select v-model="selectedItem" v-on:change="handleChange">
+      <option v-for="item in items" :value="item" :key="item">{{ item }}</option>
+    </select>
+ 
   </div>
 </template>
 
 <script>
+import { NasaApi } from './../services/NasaApi'
+
 export default {
   name: "HelloWorld",
+  data() {
+    return {
+      items: ['Curiosity', 'Opportunity', 'Spirit'],
+      selectedItem: null,
+      currentPage: 1,
+      nasaData: [],
+    }
+  },
+  async mounted() {
+    this.selectedItem = this.items[0];
+    this.currentPage = 1;
+   },
   props: {
     msg: String,
   },
+  methods: {
+ 
+    async handleChange() {
+      this.currentPage = 1;
+      this.nasaData = [];
+     },
+ 
+  }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
   margin: 40px 0 0;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.row {
+  margin: 10px;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+
+img {
+  width: 100%;
 }
 </style>
