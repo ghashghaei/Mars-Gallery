@@ -7,7 +7,8 @@
 
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
-
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 export default {
   name: "App",
   components: {
@@ -24,5 +25,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+img {
+  max-width: 300px;
 }
 </style>
