@@ -4,10 +4,24 @@
     <select v-model="selectedItem" v-on:change="handleChange">
       <option v-for="item in items" :value="item" :key="item">{{ item }}</option>
     </select>
+
+    <div class="row">
+      <div class="col-md-2 col-sm-6" v-for="item in nasaData" :key="item.id">
+        <img :src="item.img_src" :title="item.earth_date"/>
+        {{ item.id }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <button type="button" class="btn btn-info" v-on:click="loadMore">Load More</button>
+      </div>
+    </div>
   </div>
 </template>
+
 <script>
 import { NasaApi } from './../services/NasaApi'
+
 export default {
   name: "HelloWorld",
   data() {
@@ -27,6 +41,10 @@ export default {
     msg: String,
   },
   methods: {
+    async loadMore() {
+      this.currentPage = this.currentPage + 1;
+      await this.getData();
+    },
     async handleChange() {
       this.currentPage = 1;
       this.nasaData = [];
@@ -48,6 +66,10 @@ export default {
 </script>
 
 <style scoped>
+select{
+  width: 150px;
+  height: 30px;
+}
 h3 {
   margin: 40px 0 0;
 }
